@@ -1,4 +1,4 @@
-import reportlab
+# from reportlab.pdfgen import canvas
 from pypdf import PdfReader , PdfWriter
 choice=int(input("MERGE(0), WRITE(1) OR EXRACT(2): "))
 
@@ -15,18 +15,26 @@ def read():
         break
 def write():
     file=input("Enter the file name: ")
-    writer=PdfWriter(file)
-    text = input("Text you want to add:\n ")
-    writer.add_text(text)
+    # writer=PdfWriter(file)
+    pass
+
 def merger():
     file=input("Enter the file name: ")
-    pass
+    writer = PdfWriter(file)
+    file1=input("File you want to merge: ")
+    reader=PdfReader(file1)
+    output_file="merged.pdf"
+    for page in reader.pages:
+        writer.add_page(page)
+    with open(output_file,"wb") as output_pdf:
+        writer.write(output_pdf)
+    print(f"Merged file saved as {output_file}")
     
 if choice == 2:
     read()
 elif choice==1:
     write()
-elif choice==3:
+elif choice==0:
     merger()
 else:
     print("Invalid choice")
